@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh Mục Sản Phẩm</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #fff; }
+        .header { background-color: #f8d7da; padding: 10px; display: flex; align-items: center; justify-content: space-between; }
+        .menu { background-color: #ffc0cb; padding: 10px; }
+        .menu a { color: #000; text-decoration: none; margin-right: 20px; }
+        .table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #ff69b4; color: white; }
+        .status-green { background-color: green; color: white; }
+        .status-yellow { background-color: yellow; color: black; }
+        .status-red { background-color: red; color: white; }
+        .add-button { background-color: #ff69b4; color: white; padding: 10px; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="path/to/logo.png" alt="LOGO">
+        <h1>QUẢN LÝ KHO HÀNG SALAVI</h1>
+        <span>{{ request.user.username }}</span>
+        <a href="{% url 'logout' %}" style="color: red; margin-left: 10px;">Logout</a>
+    </div>
+    <div class="menu">
+        <a href="/tong-quan/">TỔNG QUAN</a>
+        <a href="/danh-muc/" style="background-color: #ff69b4; color: white; padding: 5px;">DANH MỤC</a>
+        <a href="#">XUẤT KHO</a>
+        <a href="#">NHẬP KHO</a>
+        <a href="#">KIỂM KÊ</a>
+        <a href="#">BÁO CÁO</a>
+    </div>
+    <div class="dashboard">
+        <h2>DANH MỤC SẢN PHẨM</h2>
+        <a href="{% url 'them_san_pham' %}" class="add-button">+ Thêm hàng hóa</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã hàng</th>
+                    <th>Tên hàng</th>
+                    <th>Nhóm hàng</th>
+                    <th>Đơn vị tính</th>
+                    <th>Tồn kho</th>
+                    <th>Đơn giá</th>
+                    <th>Tình trạng</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sp in san_pham_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ sp.ma_hang }}</td>
+                    <td>{{ sp.ten_san_pham }}</td>
+                    <td>{{ sp.nhom_hang }}</td>
+                    <td>{{ sp.don_vi }}</td>
+                    <td>{{ sp.so_luong }}</td>
+                    <td>{{ sp.don_gia }}</td>
+                    <td class="{% if sp.so_luong > 10 %}status-green{% elif sp.so_luong > 0 %}status-yellow{% else %}status-red{% endif %}">{{ sp.tinh_trang }}</td>
+                    <td>
+                        <a href="{% url 'sua_san_pham' sp.pk %}">✏️</a>
+                        <a href="{% url 'xoa_san_pham' sp.pk %}">🗑️</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

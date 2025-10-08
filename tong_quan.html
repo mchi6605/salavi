@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản Lý Kho Hàng Salavi</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #fff; }
+        .header { background-color: #f8d7da; padding: 10px; display: flex; align-items: center; justify-content: space-between; }
+        .menu { background-color: #ffc0cb; padding: 10px; }
+        .menu a { color: #000; text-decoration: none; margin-right: 20px; }
+        .dashboard { margin: 20px; }
+        .stats { display: flex; justify-content: space-around; }
+        .stat-box { background-color: #f8f9fa; padding: 10px; border: 1px solid #ddd; width: 150px; text-align: center; }
+        .chart { background-color: #f8d7da; padding: 20px; margin-top: 20px; display: flex; flex-direction: column; align-items: center; }
+        .pie-chart { width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(green 0% {{ ty_le_nhap }}%, yellow {{ ty_le_nhap }}% 100%); margin: auto; }
+        .buttons { display: flex; justify-content: space-around; width: 200px; margin: 10px 0; }
+        .alert-table { background-color: #fff; border: 1px solid #ddd; padding: 10px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="path/to/logo.png" alt="LOGO">  <!-- Thay bằng path logo thực -->
+        <h1>QUẢN LÝ KHO HÀNG SALAVI</h1>
+        <span>{{ request.user.username }}</span>  <!-- Tên user -->
+        <a href="{% url 'logout' %}" style="color: red; margin-left: 10px;">Logout</a>  <!-- Nút logout -->
+    </div>
+    <div class="menu">
+        <a href="/tong-quan/" style="background-color: #ff69b4; color: white; padding: 5px;">TỔNG QUAN</a>
+        <a href="#">DANH MỤC</a>
+        <a href="#">XUẤT KHO</a>
+        <a href="#">NHẬP KHO</a>
+        <a href="#">KIỂM KÊ</a>
+        <a href="#">BÁO CÁO</a>
+    </div>
+    <div class="dashboard">
+        <h3>Tình trạng kho</h3>
+        <div class="stats">
+            <div class="stat-box">Tổng sản phẩm trong kho<br>{{ tong_san_pham }}</div>
+            <div class="stat-box">Số sản phẩm sắp hết / đã hết<br>{{ san_pham_sap_het }}</div>
+            <div class="stat-box">Giá trị tồn kho (triệu đồng)<br>{{ gia_tri_ton_kho }}</div>
+            <div class="stat-box">Phiếu nhập - xuất gần nhất<br>{{ phieu_gan_nhat }}</div>
+            <div class="stat-box">Tổng số đơn hàng<br>{{ tong_don_hang }}</div>
+        </div>
+        <div class="chart">
+            <h4>TỈ LỆ XUẤT - NHẬP KHO</h4>
+            <div style="display: flex; justify-content: space-around; align-items: center;">
+                <div class="pie-chart"></div>
+                <div class="buttons">
+                    <button>Ngày</button>
+                    <button>Tuần</button>
+                    <button>Tháng</button>
+                    <button>Năm</button>
+                </div>
+            </div>
+            <p>{{ ty_le_xuat }}% Xuất kho</p>
+            <p>{{ ty_le_nhap }}% Nhập kho</p>
+        </div>
+        <div class="alert-table">
+            <h4>CẢNH BÁO HẾT HÀNG</h4>
+            <table>
+                <tr><th>Sản phẩm</th><th>Số lượng</th></tr>
+                {% for sp in canh_bao_het_hang %}
+                <tr><td>{{ sp.ten_san_pham }}</td><td>{{ sp.so_luong }}</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>

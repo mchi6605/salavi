@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Xóa Sản Phẩm</title>
+</head>
+<body>
+    <h2>Bạn chắc chắn muốn xóa "{{ san_pham.ten_san_pham }}"?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Xóa</button>
+        <a href="{% url 'danh_muc' %}">Hủy</a>
+    </form>
+</body>
+</html>

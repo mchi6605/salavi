@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Sản Phẩm</title>
+    <style>
+        /* Giống style tong_quan.html, thêm cho form */
+        .form { background-color: #f8d7da; padding: 20px; border-radius: 10px; }
+        input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; }
+        button { background-color: #0000ff; color: white; padding: 10px; margin-right: 10px; }
+        .cancel { background-color: #ff0000; }
+    </style>
+</head>
+<body>
+    <div class="form">
+        <h2>Thêm hàng hóa</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Lưu</button>
+            <a href="{% url 'danh_muc' %}" class="cancel">Hủy</a>
+        </form>
+    </div>
+</body>
+</html>

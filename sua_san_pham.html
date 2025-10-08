@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh Sửa Sản Phẩm</title>
+    <style>
+        /* Giống them_san_pham.html */
+    </style>
+</head>
+<body>
+    <div class="form">
+        <h2>Chỉnh sửa hàng hóa</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Lưu</button>
+            <a href="{% url 'danh_muc' %}" class="cancel">Hủy</a>
+        </form>
+    </div>
+</body>
+</html>
